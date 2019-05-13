@@ -1,0 +1,2 @@
+# FinalProject-BIO359
+The data used on this paper was collected by Dr. Mathew Ramsey at University of Rhode Island and by his graduate students Eric Almeida and Dasith Perera. To write this project, I received an execel sheet named "genes" (available on my github repository). As part of this assignment I organized the table, and perform different analizes on R using approches that I learned in class.  

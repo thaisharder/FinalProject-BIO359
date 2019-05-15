@@ -3,6 +3,8 @@ title: "Using RNAseq data to analyze gene expression in *Haemophilus parainfluen
 author: "Thaís Palma"
 date: "May 13, 2019"
 output: pdf_document  
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 3, fig.align = 'c
 #load packages
 library(tidyverse)
 library(grid)
-
 
 #load data
 genes = read.csv("hpara_genes.csv")
@@ -27,7 +28,7 @@ genes = read.csv("hpara_genes.csv")
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The sample *Haemophilus parainfluenzae* (ATCC 33392) was used to perform the RNAseq analyses. The sample was streaked on brain heart infusion (BHI) plates and incubated in 5% CO2 for 24 hours at 37oC. After that, one isolated colony was transfered to 3 ml of BHI liquid and incubated either aerobically or anaerobically, using a candle jar for 24 hours at 37oC. Next, 20 $\mu$l of culture was spoted on a membrane and grew for 24h under the same conditions as mentioned on the previous step. Finally, the membrane was washed with Trizol to avoid RNA degradation and frozen (-80oC). The samples were sent to have the RNA extracted and sequenced.
 
 ##RNA analyses
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The raw data was processed and analyzed using HTSeq and Bowtie. After that, I used an R script (available on github) to generate the table that is the base to this paper. Statistical analyzes, graphs, and tables were generated using Rstudio.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The raw data was processed and analyzed using HTSeq to count the reads and Bowtie to align them. After that, I used an R script (available on github) to generate the table that is the base to this paper. Statistical analyzes, graphs, and tables were generated using Rstudio.
 
 ##R analyses
 
@@ -43,7 +44,7 @@ genes = read.csv("hpara_genes.csv")
 ```{r start, tidy=TRUE, tidy.opts=list(width.cutoff=6)}
 
 # Rename variables
-genes = genes %>% rename(parent = X, name_wp = X.1, inference = X.2, protein = X.3,
+genes = genes %>% rename(parent = X, name_wp = X.1, inference = X.2, protein = X.3, 
                          trans_table = X.4)
 
 # Filtering out no values
@@ -112,7 +113,7 @@ ggplot (genes, aes (x = padj, fill = sig)) +
 
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The difference between aerobic and anaerobic genes expression is represented in Figure 4. In this plot only significant fold changes (p > 0.05) were considered. According to this analysis, it is possible to affirm that under aerobic (aero) conditions, the fold change varies from 1.35 to 5. On the other hand, under anaerobic (anaero) conditions, the fold change is more spread and varies from 1.35 to 10. However, it is important to note that large part of the genes is concentrated around 2-fold change. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The difference between aerobic and anaerobic genes expression is represented in Figure 4. In this plot only significant fold changes (p < 0.05) were considered. According to this analysis, it is possible to affirm that under aerobic (aero) conditions, the fold change varies from 1.35 to 5. On the other hand, under anaerobic (anaero) conditions, the fold change is more spread and varies from 1.35 to 10. However, it is important to note that large part of the genes is concentrated around 2-fold change. 
 
 ```{r aero_anaero , echo=FALSE, warning=FALSE, message=FALSE}
 ggplot (genes_filter, aes (x = fold_change_scaled, color = condition, fill = condition)) +

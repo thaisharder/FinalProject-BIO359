@@ -6,9 +6,9 @@ A script (script1sh) that was used to analyze the raw RNAseq data using HTSeq an
 
 A table generated after runing the script above (genes.cvs)
 
-A table that was filtered for significant values only (p<0.05)
+A table (genes_filter.csv) that was filtered for significant values only (p<0.05)
 
-The R script (scrip_final) with all codes that were used to write the paper. It includes codes to analyze the data and generate grphs and tables.
+The R script (scrip_final.Rmd) with all codes that were used to write the paper. It includes codes to analyze the data and generate graphs and tables.
 
 A paper (final_project.pdf) generated in Rmarkdown. 
 
